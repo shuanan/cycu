@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">uidesign</string>
+    <string name="app_name">BookkeepingLayout</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="lb_addAccountBanner">新增帳務</string>
+    <string name="lb_add_account">新增帳目</string>
+    <string name="lb_save">儲存</string>
 </resources>
