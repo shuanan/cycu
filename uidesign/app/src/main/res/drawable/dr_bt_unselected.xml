@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- layer-list 一次加載多層圖片 -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:left="@dimen/tab_space"
+        android:right="@dimen/tab_space">
+        <shape android:shape="rectangle" >
+
+            <!-- 設定按鈕邊緣的圓角 -->
+            <corners
+                android:bottomLeftRadius="@dimen/button_corner_radius"
+                android:bottomRightRadius="@dimen/button_corner_radius"
+                android:topLeftRadius="@dimen/button_corner_radius"
+                android:topRightRadius="@dimen/button_corner_radius" />
+            <solid
+        		android:color="@color/buttonMedium" />
+        </shape>
+    </item>
+
+
+</layer-list>

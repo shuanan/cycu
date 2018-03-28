@@ -3,4 +3,10 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="bannerDark">#58372B</color>
+    <color name="white">#FFFFFF</color>
+    <color name="tabTransparent">#10ffffff</color>
+    <color name="buttonDark">#58372B</color>
+    <color name="buttonMedium">#BEA885</color>
 </resources>
