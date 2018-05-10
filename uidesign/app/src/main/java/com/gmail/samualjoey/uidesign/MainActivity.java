@@ -23,9 +23,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i(TAG,"Enter onCreate().");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-  //      ((View) this.findViewById(android.R.id.content)).setc
+        ((View) this.findViewById(android.R.id.content)).setOnClickListener(this);
     }
-
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(this, BookkeepingLayout.class));
+        //增加過廠動畫
+        overridePendingTransition(android.R.anim.slide_in_left,
+                android.R.anim.slide_out_right);
+        this.finish();
+    }
 
     /**********app cycle************/
     @Override
@@ -63,15 +70,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStart() {
         super.onStart();
         Log.i(TAG, "onStart");
-    }
-
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(this, BookkeepingLayout.class));
-        //增加過廠動畫
-        overridePendingTransition(android.R.anim.slide_in_left,
-                android.R.anim.slide_out_right);
-        this.finish();
     }
 
 
