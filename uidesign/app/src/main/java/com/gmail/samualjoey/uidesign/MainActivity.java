@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -20,7 +22,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG,"Enter onCreate().");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bookkeeping);
+        setContentView(R.layout.activity_main);
+  //      ((View) this.findViewById(android.R.id.content)).setc
     }
 
 
