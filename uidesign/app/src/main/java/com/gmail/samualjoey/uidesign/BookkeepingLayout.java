@@ -17,6 +17,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 public class BookkeepingLayout extends AppCompatActivity implements View.OnClickListener {
+    static int bCount = 0;
     final static  String TAG = "Bookkeeping";
     Button bt;
     EditText et;
@@ -25,26 +26,12 @@ public class BookkeepingLayout extends AppCompatActivity implements View.OnClick
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG,"Enter onCreate().");
+        bCount++;
+        Log.i(TAG,"Enter onCreate(). count = " + bCount);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookkeeping);
 
-        bt = (Button) this.findViewById(R.id.sButton);
-        et = (EditText) this.findViewById(R.id.editText);
-
-        bt.setOnClickListener(this);
-        et.setOnClickListener(this);
-
-        spinner = (Spinner) this.findViewById(R.id.planets_spinner);
-        //create arrayadapter//
-
-        //      ArrayList<Person> myArrayList;
-        //       myArrayList = new ArrayList<Person>();
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        uiInit();
     }
 
     /***************calender***************/
@@ -59,6 +46,11 @@ public class BookkeepingLayout extends AppCompatActivity implements View.OnClick
         et = (EditText) this.findViewById(R.id.editText);
 
         spinner = (Spinner) this.findViewById(R.id.planets_spinner);
+        //create arrayadapter//
+
+        //      ArrayList<Person> myArrayList;
+        //       myArrayList = new ArrayList<Person>();
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_dropdown_item);
         adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
@@ -88,42 +80,43 @@ public class BookkeepingLayout extends AppCompatActivity implements View.OnClick
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause");
+        Log.i(TAG, "onPause. count = " + bCount);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
-        uiInit();
+        Log.i(TAG, "onResume. count = " + bCount);
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        Log.i(TAG, "onRestart");
+        Log.i(TAG, "onRestart. count = " + bCount);
 
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(TAG, "onStop");
+        Log.i(TAG, "onStop. count = " + bCount);
         releaseListener();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy");
+        Log.i(TAG, "onDestroy. count = " + bCount);
         setListener();
         varInit();
+
+        bCount--;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart");
+        Log.i(TAG, "onStart. count = " + bCount);
     }
 
     @Override

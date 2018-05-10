@@ -15,15 +15,16 @@ import android.widget.Spinner;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    static int mcount = 0;
     final static  String TAG = "MainActivity";
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.i(TAG,"Enter onCreate().");
+        mcount++;
+        Log.i(TAG,"Enter onCreate(). count = " + mcount);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ((View) this.findViewById(android.R.id.content)).setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -38,38 +39,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onPause() {
         super.onPause();
-        Log.i(TAG, "onPause");
+        Log.i(TAG, "onPause. count = " + mcount);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.i(TAG, "onResume");
+        Log.i(TAG, "onResume. count = " + mcount);
     }
 
     @Override
     protected void onRestart(){
         super.onRestart();
-        Log.i(TAG, "onRestart");
+        Log.i(TAG, "onRestart. count = " + mcount);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.i(TAG, "onStop");
+        Log.i(TAG, "onStop. count = " + mcount);
+        ((View) this.findViewById(android.R.id.content)).setOnClickListener(null);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.i(TAG, "onDestroy");
-
+        Log.i(TAG, "onDestroy. count = " + mcount);
+        mcount--;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart");
+        Log.i(TAG, "onStart. count = " + mcount);
+        ((View) this.findViewById(android.R.id.content)).setOnClickListener(this);
     }
 
 
