@@ -69,7 +69,7 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
         theDate.setTextSize(20);
         theTime = (TextView) findViewById(R.id.aTime);
         theTime.setGravity(Gravity.CENTER);
-        theTime.setTextSize(20);
+        theTime.setTextSize(17);
     }
     /************變數初始***************/
     void varInit(){
