@@ -4,6 +4,7 @@ package com.gmail.samualjoey.uidesign;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -29,6 +30,9 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
 
     Button bt;
     EditText et;
+    EditText price;
+    DB db;
+
     Spinner spinner;
     TextView theDate, theTime;
     /***************calender***************/
@@ -52,7 +56,8 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
     void uiInit(){
         bt = (Button) this.findViewById(R.id.sButton);
         et = (EditText) this.findViewById(R.id.editText);
-
+        price = (EditText) this.findViewById(R.id.editText);
+        db = new DB(this);
         spinner = (Spinner) this.findViewById(R.id.planets_spinner);
         //create arrayadapter//
 
@@ -139,7 +144,8 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
             case R.id.sButton:     /*********************儲存********************/
                // et.setText("1000000");
                 //et.setTextColor(Color.CYAN);
-                startActivity(new Intent(this, MainActivity.class));
+              //  startActivity(new Intent(this, MainActivity.class));
+               // saveItem();
                 break;
             case R.id.aDate:         /*********日期****************/
                 new DatePickerDialog(this,
@@ -171,5 +177,32 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
         }
     }
 
+
+//    private boolean saveItem(){
+// //       if(!isModified){
+// //           return false;
+//  //      }
+//
+//    ContentValues itemValues = new ContentValues();
+//
+//    //1.金額
+//    String tmp = price.getText().toString();
+//    if(tmp == null || "".equals(tmp)){
+//        tmp = "0";
+//    }
+//
+//    //沒填就是空白
+//        itemValues.put(DB.KEY_CATEGORY, category.getText().toStirng());
+//        itemValues.put(DB.KEY_ITEM, item.getText().toStirng().trml());
+//        itemValues.put(DB.KEY_PAYSTYLE, payment.getText().toStirng());
+//        itemValues.put(DB.KEY_MEMO, note.getText().toStirng());
+//        itemValues.put(DB.KEY_DATE, dbFormat.format(c.getTime());
+//
+//        db.openToWrite();
+//        db.insert(itemValues);
+//        db.close();
+//        return true;
+//    }
+//
 
 }
