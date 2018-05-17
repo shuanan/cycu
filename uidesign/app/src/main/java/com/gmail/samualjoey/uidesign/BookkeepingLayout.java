@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,12 +29,13 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
     static int bCount = 0;
     final static  String TAG = "Bookkeeping";
 
+    ImageView Iv_Camera;
     Button bt;
-    EditText et;
+    EditText et_Item, et_Note, et_Price;
     EditText price;
     DB db;
 
-    Spinner spinner;
+    Spinner spinner_item, spinner_payment;
     TextView theDate, theTime;
     /***************calender***************/
     SimpleDateFormat df_date = new java.text.SimpleDateFormat(
@@ -49,25 +51,36 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookkeeping);
 
+
         uiInit();
+        db = new DB(this);
     }
 
     /************介面初始*****************/
     void uiInit(){
+        et_Item = (EditText) this.findViewById(R.id.item) ;
+        et_Note = (EditText) this.findViewById(R.id.note);
+        et_Price = (EditText) this.findViewById(R.id.price);
+        Iv_Camera = (ImageView) this.findViewById(R.id.camera);
         bt = (Button) this.findViewById(R.id.sButton);
-        et = (EditText) this.findViewById(R.id.editText);
-        price = (EditText) this.findViewById(R.id.editText);
         db = new DB(this);
-        spinner = (Spinner) this.findViewById(R.id.planets_spinner);
+        spinner_item = (Spinner) this.findViewById(R.id.planets_spinner);
+        spinner_payment = (Spinner) this.findViewById(R.id.payment_spinner);
+
         //create arrayadapter//
 
         //      ArrayList<Person> myArrayList;
         //       myArrayList = new ArrayList<Person>();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.category_array, android.R.layout.simple_spinner_dropdown_item);
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        ArrayAdapter<CharSequence> adapter_item = ArrayAdapter.createFromResource(this,
+                R.array.category_array, R.layout.simple_spinner_dropdown_item);
+        adapter_item.setDropDownViewResource(R.layout.simple_spinner_dropdown_item);
+        spinner_item.setAdapter(adapter_item);
+
+        ArrayAdapter<CharSequence> adapter_payment = ArrayAdapter.createFromResource(this,
+                R.array.payment_array, R.layout.simple_spinner_dropdown_payment);
+        adapter_payment.setDropDownViewResource(R.layout.simple_spinner_dropdown_payment);
+        spinner_payment.setAdapter(adapter_payment);
 
         theDate = (TextView) findViewById(R.id.aDate);
         theDate.setGravity(Gravity.CENTER);
@@ -85,16 +98,16 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
     /**************監聽******************/
     void setListener(){
         bt.setOnClickListener(this);
-        et.setOnClickListener(this);
         theDate.setOnClickListener(this);
         theTime.setOnClickListener(this);
+        Iv_Camera.setOnClickListener(this);
     }
     /*****************釋放監聽*****************/
     void releaseListener(){
         bt.setOnClickListener(null);
-        et.setOnClickListener(null);
         theDate.setOnClickListener(null);
         theTime.setOnClickListener(null);
+        Iv_Camera.setOnClickListener(null);
     }
     /**********app cycle************/
     @Override
@@ -145,7 +158,7 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
                // et.setText("1000000");
                 //et.setTextColor(Color.CYAN);
               //  startActivity(new Intent(this, MainActivity.class));
-               // saveItem();
+                saveItem();
                 break;
             case R.id.aDate:         /*********日期****************/
                 new DatePickerDialog(this,
@@ -174,35 +187,39 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
                             }
                 }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),false).show();
                 break;
+            case R.id.camera:
+                startActivity(new Intent(this, ShowResultActivity.class));
+                break;
         }
     }
 
 
-//    private boolean saveItem(){
-// //       if(!isModified){
-// //           return false;
-//  //      }
+    private boolean saveItem(){
+//     if(!isModified){
+//          return false;
+//       }
 //
-//    ContentValues itemValues = new ContentValues();
-//
-//    //1.金額
-//    String tmp = price.getText().toString();
-//    if(tmp == null || "".equals(tmp)){
-//        tmp = "0";
-//    }
-//
-//    //沒填就是空白
-//        itemValues.put(DB.KEY_CATEGORY, category.getText().toStirng());
-//        itemValues.put(DB.KEY_ITEM, item.getText().toStirng().trml());
-//        itemValues.put(DB.KEY_PAYSTYLE, payment.getText().toStirng());
-//        itemValues.put(DB.KEY_MEMO, note.getText().toStirng());
-//        itemValues.put(DB.KEY_DATE, dbFormat.format(c.getTime());
-//
-//        db.openToWrite();
-//        db.insert(itemValues);
-//        db.close();
-//        return true;
-//    }
-//
+    ContentValues itemValues = new ContentValues();
+
+    //1.金額
+    String tmp = et_Price.getText().toString();
+    if(tmp == null || "".equals(tmp)){
+        tmp = "0";
+    }
+
+    //沒填就是空白
+        itemValues.put(DB.KEY_MONEY, et_Price.getEditableText().toString().trim());
+        itemValues.put(DB.KEY_CATEGORY, spinner_item.getSelectedItem().toString().trim());
+        itemValues.put(DB.KEY_ITEM, et_Item.getEditableText().toString().trim());
+        itemValues.put(DB.KEY_PAYSTYLE, spinner_payment.getSelectedItem().toString().trim());
+        itemValues.put(DB.KEY_MEMO, et_Note.getEditableText().toString().trim());
+        itemValues.put(DB.KEY_DATE, df_date.format(c.getTime()));
+
+
+        db.openToWrite();
+        db.insert(itemValues);
+        db.close();
+        return true;
+   }
 
 }

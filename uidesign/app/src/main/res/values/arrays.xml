@@ -8,4 +8,11 @@
         <item>育</item>
         <item>樂</item>
     </string-array>
+
+    <string-array name="payment_array">
+        <item>現金</item>
+        <item>信用卡</item>
+        <item>手機支付</item>
+
+    </string-array>
 </resources>
