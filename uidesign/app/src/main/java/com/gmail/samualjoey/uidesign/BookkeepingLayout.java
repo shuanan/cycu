@@ -12,11 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -34,7 +36,7 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
     EditText et_Item, et_Note, et_Price;
     EditText price;
     DB db;
-
+    ListView lv;
     Spinner spinner_item, spinner_payment;
     TextView theDate, theTime;
     /***************calender***************/
@@ -66,7 +68,7 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
         db = new DB(this);
         spinner_item = (Spinner) this.findViewById(R.id.planets_spinner);
         spinner_payment = (Spinner) this.findViewById(R.id.payment_spinner);
-
+        lv = (ListView) this.findViewById(R.id.listView);
         //create arrayadapter//
 
         //      ArrayList<Person> myArrayList;
@@ -159,6 +161,7 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
                 //et.setTextColor(Color.CYAN);
               //  startActivity(new Intent(this, MainActivity.class));
                 saveItem();
+                startActivity(new Intent(this, ShowResultActivity.class));
                 break;
             case R.id.aDate:         /*********日期****************/
                 new DatePickerDialog(this,
@@ -188,8 +191,9 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
                 }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),false).show();
                 break;
             case R.id.camera:
-                startActivity(new Intent(this, ShowResultActivity.class));
                 break;
+
+
         }
     }
 
@@ -214,6 +218,7 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
         itemValues.put(DB.KEY_PAYSTYLE, spinner_payment.getSelectedItem().toString().trim());
         itemValues.put(DB.KEY_MEMO, et_Note.getEditableText().toString().trim());
         itemValues.put(DB.KEY_DATE, df_date.format(c.getTime()));
+    //    itemValues.put(DB.KEY_TIME, df_time_am.format(c.getTime()));
 
 
         db.openToWrite();
@@ -221,5 +226,6 @@ public class BookkeepingLayout extends Activity implements View.OnClickListener{
         db.close();
         return true;
    }
+
 
 }

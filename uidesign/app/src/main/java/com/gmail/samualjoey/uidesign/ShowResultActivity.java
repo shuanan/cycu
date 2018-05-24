@@ -16,8 +16,9 @@ public class ShowResultActivity extends Activity {
     private Cursor cursor = null;
     SimpleCursorAdapter adapter;
 
-    String[] from ={DB.KEY_MONEY, DB.KEY_CATEGORY};
-    int[] to = {android.R.id.text1, android.R.id.text2};
+    String[] from ={DB.KEY_MONEY, DB.KEY_CATEGORY, DB.KEY_ITEM, DB.KEY_PAYSTYLE,
+    DB.KEY_DATE, DB.KEY_MEMO};
+    int[] to = {R.id.text1, R.id.text2, R.id.text3, R.id.text4, R.id.text5, R.id.text6};
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,7 +44,7 @@ public class ShowResultActivity extends Activity {
         cursor = db.getAll();
         if(cursor != null && cursor.getCount() > 0){
             adapter = new SimpleCursorAdapter(this,
-                    android.R.layout.simple_list_item_2, cursor, from, to, 0);
+                    R.layout.list_item, cursor, from, to, 0);
             lv.setAdapter(adapter);
         }
     }
